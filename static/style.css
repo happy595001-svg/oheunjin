@@ -1,0 +1,124 @@
+body {
+
+    background-color: #f1f5f9;
+
+    font-family: Arial, sans-serif;
+}
+
+
+/* 사이드바 */
+
+.sidebar {
+
+    width: 220px;
+
+    min-height: 100vh;
+
+    background-color: #0f172a;
+
+    padding: 30px 20px;
+}
+
+.logo {
+
+    color: white;
+
+    font-size: 24px;
+
+    font-weight: bold;
+
+    margin-bottom: 40px;
+}
+
+.sidebar a {
+
+    display: block;
+
+    color: #cbd5e1;
+
+    text-decoration: none;
+
+    margin-bottom: 18px;
+
+    font-size: 15px;
+}
+
+.sidebar a:hover {
+
+    color: white;
+}
+
+
+/* 메인 */
+
+.main-content {
+
+    flex: 1;
+
+    padding: 40px;
+}
+
+
+/* 검색창 */
+
+.search-box {
+
+    margin-bottom: 25px;
+}
+
+
+/* 기업 버튼 */
+
+.company-btn {
+
+    border-radius: 30px;
+
+    margin-right: 10px;
+
+    margin-bottom: 10px;
+}
+
+
+/* 뉴스 카드 */
+
+.news-card {
+
+    border: none;
+
+    border-radius: 18px;
+
+    overflow: hidden;
+
+    box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+}
+
+.news-card img {
+
+    height: 220px;
+
+    object-fit: cover;
+}
+
+
+/* 카드 제목 */
+
+.card-title {
+
+    font-size: 18px;
+
+    font-weight: bold;
+
+    line-height: 1.5;
+}
+
+
+/* 기업 정보 카드 */
+
+.info-card {
+
+    border: none;
+
+    border-radius: 18px;
+
+    box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+}
