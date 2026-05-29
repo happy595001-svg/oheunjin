@@ -1,206 +1,75 @@
-<!DOCTYPE html>
-<html>
+{% extends "base.html" %}
 
-<head>
+{% block title %}{{ name }} 기업정보{% endblock %}
 
-    <title>{{ name }}</title>
+{% block content %}
+<section class="page-title">
+  <span class="eyebrow">Company Profile</span>
+  <h1>{{ name }}</h1>
+  <p>{{ company.description }}</p>
+  <a href="{{ company.homepage }}" class="btn btn-primary" target="_blank" rel="noreferrer">
+    홈페이지 이동
+  </a>
+</section>
 
-    <link
-    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css"
-    rel="stylesheet">
+<section class="detail-grid">
+  <article class="info-card">
+    <h2>기업 정보</h2>
+    <dl class="info-list">
+      <div>
+        <dt>지역</dt>
+        <dd>{{ company.location }}</dd>
+      </div>
+      <div>
+        <dt>업종</dt>
+        <dd>{{ company.industry }}</dd>
+      </div>
+      <div>
+        <dt>기업 설명</dt>
+        <dd>{{ company.description }}</dd>
+      </div>
+    </dl>
+  </article>
 
-    <link
-    rel="stylesheet"
-    href="{{ url_for('static', filename='style.css') }}">
-
-</head>
-
-<body>
-
-<div class="d-flex">
-
-    <!-- 사이드바 -->
-
-    <div class="sidebar p-4">
-
-        <h3 class="text-white mb-5">
-            HYUNDAI JOB
-        </h3>
-
-        <a href="/">홈</a>
-
-        <a href="#">기업정보</a>
-
-        <a href="#">채용공고</a>
-
-        <a href="#">산업뉴스</a>
-
-        <a href="#">면접준비</a>
-
+  <article class="info-card">
+    <h2>인재상</h2>
+    <div class="tag-list">
+      {% for item in company.talent %}
+      <span>{{ item }}</span>
+      {% endfor %}
     </div>
-
-
-    <!-- 메인 -->
-
-    <div class="flex-grow-1 p-5">
-
-        <!-- 기업명 -->
-
-        <h2 class="fw-bold mb-4">
-
-            {{ name }}
-
-        </h2>
-
-
-        <!-- 기업 정보 -->
-
-        <div class="card info-card mb-4">
-
-            <div class="card-body">
-
-                <h4 class="mb-3">
-                    기업 정보
-                </h4>
-
-                <p>
-                    <b>지역:</b>
-                    {{ company.location }}
-                </p>
-
-                <p>
-                    <b>업종:</b>
-                    {{ company.industry }}
-                </p>
-
-                <p>
-                    <b>설명:</b>
-                    {{ company.description }}
-                </p>
-
-                <a
-                href="{{ company.homepage }}"
-                class="btn btn-primary">
-
-                    홈페이지 이동
-
-                </a>
-
-            </div>
-
-        </div>
-
-
-        <!-- 인재상 -->
-
-        <div class="card info-card mb-4">
-
-            <div class="card-body">
-
-                <h4 class="mb-3">
-                    인재상
-                </h4>
-
-                <ul>
-
-                    {% for item in company.talent %}
-
-                    <li>{{ item }}</li>
-
-                    {% endfor %}
-
-                </ul>
-
-            </div>
-
-        </div>
-
-
-        <!-- 직무 정보 -->
-
-        <div class="card info-card mb-5">
-
-            <div class="card-body">
-
-                <h4 class="mb-3">
-                    직무 정보
-                </h4>
-
-                <ul>
-
-                    {% for job in company.jobs %}
-
-                    <li>{{ job }}</li>
-
-                    {% endfor %}
-
-                </ul>
-
-            </div>
-
-        </div>
-
-
-        <!-- 최신 뉴스 -->
-
-        <h3 class="fw-bold mb-4">
-            최신 뉴스
-        </h3>
-
-        <div class="row">
-
-            {% for item in news %}
-
-            <div class="col-lg-4 mb-4">
-
-                <div class="card news-card h-100">
-
-                    <img
-                    src="{{ item.image }}"
-                    class="card-img-top">
-
-                    <div class="card-body">
-
-                        <div class="text-primary small mb-2">
-
-                            자동차 산업 뉴스
-
-                        </div>
-
-                        <h5 class="card-title">
-
-                            {{ item.title | safe }}
-
-                        </h5>
-
-                        <p class="text-muted">
-
-                            현대자동차 및 협력사 관련 최신 기사입니다.
-
-                        </p>
-
-                        <a
-                        href="{{ item.link }}"
-                        class="btn btn-primary">
-
-                            기사 보기
-
-                        </a>
-
-                    </div>
-
-                </div>
-
-            </div>
-
-            {% endfor %}
-
-        </div>
-
+  </article>
+
+  <article class="info-card">
+    <h2>직무 정보</h2>
+    <div class="job-list">
+      {% for job in company.jobs %}
+      <span>{{ job }}</span>
+      {% endfor %}
     </div>
+  </article>
+</section>
 
-</div>
+<section class="section-block">
+  <div class="section-heading">
+    <div>
+      <span class="eyebrow">Related News</span>
+      <h2>{{ name }} 최신 뉴스</h2>
+    </div>
+  </div>
 
-</body>
-
-</html>
+  <div class="news-list">
+    {% for item in news %}
+    <article class="news-item">
+      <img src="{{ item.image }}" alt="" />
+      <div>
+        <span class="badge-soft">기업 이슈</span>
+        <h3>{{ item.title | safe }}</h3>
+        <p>{{ item.description[:120] }}...</p>
+        <a href="{{ item.link }}" class="btn btn-outline-primary btn-sm">기사 보기</a>
+      </div>
+    </article>
+    {% endfor %}
+  </div>
+</section>
+{% endblock %}

@@ -1,5 +1,7 @@
 from crawler import get_news_image
 import requests
+import re
+import html
 
 client_id = "zcJPKaKkhJpQ4NJpOXgI"
 client_secret = "VAit_CLQ_P"
@@ -34,9 +36,31 @@ def get_news(keyword):
 
         for item in data['items']:
 
-            image_url = get_news_image( 
-                item['link'] 
-            ) 
-            news_list.append({ "title": item['title'], "link": item['link'], "image": image_url })
+            image_url = get_news_image(
+                item['link']
+            )
+
+            title = re.sub(
+            '<.*?>',
+            '',
+            item['title']
+            )
+
+            title = html.unescape(title)
+
+            description = re.sub(
+                '<.*?>',
+                '',
+                item['description']
+            )
+
+            description = html.unescape(description)
+
+            news_list.append({
+                "title": title,
+                "description": description,
+                "link": item['link'],
+                "image": image_url
+            })
 
     return news_list

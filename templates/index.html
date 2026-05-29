@@ -1,152 +1,113 @@
-<!DOCTYPE html>
-<html>
+{% extends "base.html" %}
 
-<head>
+{% block title %}현대차 협력사 취업 플랫폼{% endblock %}
 
-    <title>현대차 협력사 취업 플랫폼</title>
+{% block content %}
+<section class="hero-section">
+  <div class="hero-copy">
+    <span class="eyebrow">현대자동차 협력사 취업 준비</span>
+    <h1>기업 정보부터 면접 준비까지 한 화면에서 확인하세요.</h1>
+    <p>
+      주요 협력사 정보, 자동차 산업 뉴스, 직무 키워드를 취업 준비생이 읽기 쉬운 구조로 모았습니다.
+    </p>
 
-    <link
-    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css"
-    rel="stylesheet">
+    <form class="search-panel" action="/search" method="get">
+      <i class="bi bi-search"></i>
+      <input
+        type="text"
+        name="q"
+        class="form-control"
+        placeholder="직무, 기업명, 산업 키워드를 검색해 보세요"
+        aria-label="검색어"
+      />
+      <button class="btn btn-primary" type="submit">검색</button>
+    </form>
+  </div>
 
-    <link
-    rel="stylesheet"
-    href="{{ url_for('static', filename='style.css') }}">
+  <aside class="hero-card" aria-label="오늘의 취업 준비 요약">
+    <strong>오늘의 준비 체크</strong>
+    <ul>
+      <li>관심 기업 3곳 비교하기</li>
+      <li>지원 직무 핵심 역량 정리하기</li>
+      <li>최근 산업 뉴스 1개 면접 답변에 연결하기</li>
+    </ul>
+  </aside>
+</section>
 
-</head>
+<section class="action-grid" aria-label="취업 준비 바로가기">
+  <a href="/companies" class="action-card">
+    <i class="bi bi-building"></i>
+    <span>기업 비교</span>
+    <strong>협력사별 지역, 업종, 직무를 비교해 보세요.</strong>
+  </a>
+  <a href="/jobs" class="action-card">
+    <i class="bi bi-briefcase"></i>
+    <span>채용공고 확인</span>
+    <strong>관심 기업의 최신 채용공고를 바로 확인하세요.</strong>
+  </a>
+  <a href="/interview" class="action-card">
+    <i class="bi bi-chat-square-text"></i>
+    <span>면접 준비</span>
+    <strong>기업 이슈와 직무 역량을 답변으로 정리하세요.</strong>
+  </a>
+</section>
 
-<body>
-
-<div class="d-flex">
-
-    <!-- 사이드바 -->
-
-    <div class="sidebar p-4">
-
-        <h3 class="text-white mb-5">
-            HYUNDAI JOB
-        </h3>
-
-        <a href="/">홈</a>
-
-        <a href="#">기업정보</a>
-
-        <a href="#">채용공고</a>
-
-        <a href="#">산업뉴스</a>
-
-        <a href="#">면접준비</a>
-
+<section class="content-grid">
+  <div class="content-main">
+    <div class="section-heading">
+      <div>
+        <span class="eyebrow">Company</span>
+        <h2>주요 협력사</h2>
+      </div>
+      <a href="/companies" class="text-link">전체보기</a>
     </div>
 
-
-    <!-- 메인 -->
-
-    <div class="flex-grow-1 p-5">
-
-        <!-- 제목 -->
-
-        <h2 class="fw-bold mb-4">
-
-            현대자동차 및 협력사 취업 플랫폼
-
-        </h2>
-
-
-        <!-- 검색창 -->
-
-        <form class="d-flex mb-4">
-
-            <input
-            type="text"
-            class="form-control me-2"
-            placeholder="직무, 산업 키워드, 기업 이슈를 검색하세요">
-
-            <button
-            class="btn btn-primary">
-
-                검색
-
-            </button>
-
-        </form>
-
-
-        <!-- 기업 버튼 -->
-
-        <div class="mb-5">
-
-            {% for company in companies %}
-
-            <a
-            href="/company/{{ company }}"
-            class="btn btn-light rounded-pill me-2 mb-2">
-
-                {{ company }}
-
-            </a>
-
-            {% endfor %}
-
-        </div>
-
-
-        <!-- 뉴스 카드 -->
-
-        <div class="row">
-
-            {% for item in news %}
-
-            <div class="col-lg-4 mb-4">
-
-                <div class="card news-card h-100">
-
-                    <img
-                    src="{{ item.image }}"
-                    class="card-img-top">
-
-                    <div class="card-body">
-
-                        <div class="text-primary small mb-2">
-
-                            자동차 산업 뉴스
-
-                        </div>
-
-                        <h5 class="card-title">
-
-                            {{ item.title | safe }}
-
-                        </h5>
-
-                        <p class="text-muted">
-
-                            현대자동차 및 협력사 관련 최신 기사입니다.
-
-                        </p>
-
-                        <a
-                        href="{{ item.link }}"
-                        class="btn btn-primary">
-
-                            기사 보기
-
-                        </a>
-
-                    </div>
-
-                </div>
-
-            </div>
-
-            {% endfor %}
-
-        </div>
-
+    <div class="company-grid">
+      {% for company in companies %}
+      <a href="/company/{{ company }}" class="company-chip">
+        <span>{{ company }}</span>
+        <i class="bi bi-chevron-right"></i>
+      </a>
+      {% endfor %}
     </div>
 
-</div>
+    <div class="section-heading mt-5">
+      <div>
+        <span class="eyebrow">News</span>
+        <h2>최신 자동차 산업 뉴스</h2>
+      </div>
+      <a href="/news" class="text-link">뉴스 더보기</a>
+    </div>
 
-</body>
+    <div class="news-list">
+      {% for item in news %}
+      <article class="news-item">
+        <img src="{{ item.image }}" alt="" />
+        <div>
+          <span class="badge-soft">자동차 산업</span>
+          <h3>{{ item.title | safe }}</h3>
+          <p>{{ item.description[:120] }}...</p>
+          <a href="{{ item.link }}" class="btn btn-outline-primary btn-sm">기사 보기</a>
+        </div>
+      </article>
+      {% endfor %}
+    </div>
+  </div>
 
-</html>
+  <aside class="side-panel">
+    <h2>취업 준비 바로가기</h2>
+    <a href="/jobs">
+      <i class="bi bi-briefcase"></i>
+      <span>채용공고 탐색</span>
+    </a>
+    <a href="/interview">
+      <i class="bi bi-chat-square-text"></i>
+      <span>면접 질문 준비</span>
+    </a>
+    <a href="/briefing">
+      <i class="bi bi-stars"></i>
+      <span>AI 브리핑 확인</span>
+    </a>
+  </aside>
+</section>
+{% endblock %}
